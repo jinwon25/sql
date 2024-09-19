@@ -18,18 +18,19 @@
 - 데이터베이스의 데이터를 관리하기 위해 설계된 특수 목적의 프로그래밍 언어
 
 ### 테이블에 저장된 데이터의 형태
-**테이블 구조**
-행(Row) →:
+**테이블 구조**<br>
+행(Row) →:<br>
 - 하나의 row가 하나의 고유한 데이터
 - (주의) Raw 데이터: 원본 데이터
-열(Column) ↓:
+
+열(Column) ↓:<br>
 - 각 데이터의 특정 속성 값
 
-### OLAP
+### OLAP(Online Analytical Processing):
 - OLTP로 데이터 분석을 하다가 속도, 기능 부족의 이슈로 OLAP 등장
-**OLAP(Online Analytical Processing):**
 - 분석을 위한 기능 제공
-**데이터 웨어하우스:**
+
+### 데이터 웨어하우스:
 - 데이터를 한 곳에 모아서 저장
 - 여러 곳에 저장된 데이터 예시 (Database, 웹(크롤링), 파일, API의 결과 등)
 
@@ -50,10 +51,11 @@ Google Cloud의 OLAP + 데이터 웨어하우스
 - 회사에서 앱이나 웹에서 Firebase, Google Analytics 4를 활용할 경우
 - 운영을 적은 비용(인력 등)으로 진행하기 위해 
 
-**비용**
+**비용**<br>
 쿼리 비용(Compute Pricing):
 - On-demand 요금제: 쿼리에서 처리된 용량만큼 부과
 - Capacity 요금제: Slot 단위로 요금 부과
+
 저장 비용(Storage Pricing):
 - Active Logical 저장소
 - Long-term Logical 저장소
@@ -81,5 +83,5 @@ Google Cloud의 OLAP + 데이터 웨어하우스
 **데이터를 활용하는 과정**
 ![스크린샷](../image/screenshot3.png)
 
-- 문제 정의 / MECE(Mutually Exclusive and Collectively Exhaustive):** 중복이 없고 상호배제적
-- 지표 정의 / Metric
+- 문제 정의 / **MECE(Mutually Exclusive and Collectively Exhaustive):** 중복이 없고 상호배제적
+- 지표 정의 / **Metric**
