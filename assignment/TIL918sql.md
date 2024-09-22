@@ -81,7 +81,7 @@ Google Cloud의 OLAP + 데이터 웨어하우스
 
 ## 3. 데이터 활용 Overview
 **데이터를 활용하는 과정**
-![스크린샷](../image/screenshot3.png)
+![스크린샷](../image/screenshot1.png)
 
 > - 문제 정의 -> **MECE(Mutually Exclusive and Collectively Exhaustive):** 중복이 없고 상호배제적
 > - 지표 정의 -> **Metric**
@@ -131,8 +131,8 @@ Google Cloud의 OLAP + 데이터 웨어하우스
 > - 웹페이지 접근 수
 > - 웹페이지의 버튼 클릭 수
 
-![스크린샷](../image/screenshot4.png)
+![스크린샷](../image/screenshot2.png)
 
 
 ## 과제 인증샷
-![스크린샷](../image/screenshot5.png)
+![스크린샷](../image/screenshot3.png)
