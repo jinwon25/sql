@@ -57,6 +57,7 @@ SELECT<br>
 - 여러 컬럼 명시 가능
 - col1 AS "별칭"으로 컬럼의 이름도 별칭 지정 가능
 
+
 ## 2. SELECT 연습 문제
 
 ### 1. trainer 테이블에 있는 모든 데이터를 보여주는 SQL 쿼리를 작성해주세요.
@@ -91,5 +92,139 @@ SELECT<br>
 3) 공격력, 체력 => 테이블에서 어떤 컬럼인지 확인해야 함 => attack, hp
 ![스크린샷](../image/screenshot10.png)
 
+
 ## 3. 집계(GROUP BY + HAVING + SUM/COUNT)
 
+### 집계와 그룹화
+**집계하다:** 모을 집, 계산할 계<br>
+모아서 계산하다<br>
+(=그룹화)해서 계산하다
+
+**계산**
+- 더하기, 빼기
+- 최대값, 최소값
+- 평균
+- 갯수 세기
+
+### 집계: GROUP BY
+- **GROUP BY:** 같은 값끼리 모아서 그룹화한다
+- 특정 컬럼을 기준으로 모으면서 다른 컬럼에선 집계 가능(합, 평균, MAX, MIN 등)
+
+### 앞에서 나온 것을 SQL로 표현해보기
+>SELECT<br>
+&ensp; 집계할_컬럼1,<br>
+&ensp; 집계 함수(COUNT, MAX, MIN 등)<br>
+FROM Table<br>
+GROUP BY<br>
+&ensp; 집계할_컬럼1
+
+**집계할 컬럼을 SELECT에 명시하고<br>
+그 컬럼을 꼭 GROUP BY에 작성**
+
+### DISTINCT: 고유값을 알고 싶은 경우
+**DISTINCT의 뜻:** 별개의 여러 값 중에 Unique한 것만 보고 싶은 경우 사용
+
+예시
+- 1, 2, 3, 4 => DISTINCT하면? => **1, 2, 3, 4**
+
+**DISTINCT는 중복을 제거하는 것**
+
+>SELECT<br>
+&ensp; 집계할 컬럼,<br>
+&ensp; COUNT(DISTINCT count할-컬럼)<br>
+FROM Table<br>
+GROUP BY<br>
+&ensp; 집계할 컬럼
+
+### 그룹화(집계) 활용 포인트
+데이터 분석하다가 그룹화하는 경우
+- 일자별 집계(원본 데이터는 특정 시간에 어떤 유저가 한 행동이 기록, 일자별로 집계)
+- 연령대별 집계(특정 연령대에서 더 많이 구매했는가?)
+- 특정 타입별 집계(특정 제품 타입을 많이 구매했는가?)
+- 앱 화면별 집계(어떤 화면에 유저가 많이 접근했는가?)
+
+### 조건을 설정하고 싶은 경우: WHERE
+**Table에 바로** 조건을 설정하고 싶은 경우 사용
+
+Raw Data인 **테이블 데이터**에서 조건 설정
+
+>SELECT<br>
+&ensp; 컬럼1, 컬럼2<br>
+&ensp; COUNT(컬럼1) AS col1_count<br>
+FROM Table<br>
+WHERE<br>
+&ensp; 컬럼1 >= 3
+
+### 조건을 설정하고 싶은 경우: HAVING
+**GROUP BY한 후** 조건을 설정하고 싶은 경우 사용
+
+>SELECT<br>
+&ensp; 컬럼1, 컬럼2<br>
+&ensp; COUNT(컬럼1) AS col1_count<br>
+FROM Table<br>
+GROUP BY 컬럼1, 컬럼2<br>
+Having<br>
+&ensp; col1_count > 3
+
+### 서브 쿼리
+- SELECT문 안에 존재하는 SELECT 쿼리
+- FROM절에 또 다른 SELECT문을 넣을 수 있음
+- 괄호로 묶어서 사용
+
+서브 쿼리를 작성하고, 서브 쿼리 바깥에서 WHERE 조건 설정하는 것<br>
+= 서브 쿼리에서 HAVING으로 하는 것
+
+### 정렬하기: ORDER BY
+>SELECT<br>
+&ensp; col<br>
+FROM<br>
+ORDER BY <컬럼> <순서>
+
+**순서:** DESC(내림차순), OSC(오름차순 - 보통 Default)
+
+ORDER BY는 쿼리의 맨 마지막(아래)에 두고, 쿼리의 맨 마지막에만 작성하면 됨(중간에 필요없음)
+
+### 출력 개수 제한하기: LIMIT
+- 쿼리문의 결과 Row 수를 제한하고 싶은 경우 LIMIT 사용
+
+**쿼리문의 제일 마지막에 작성**
+
+>SELECT<br>
+&ensp; col<br>
+FROM Table<br>
+LIMIT 10
+
+### GROUP BY 연습 문제
+
+#### 1. pokemon 테이블에 있는 포켓몬 수를 구하는 쿼리를 작성해주세요.
+1) 사용할 테이블: pokemon
+2) 조건: X
+3) 그룹화를 할 때 사용할 컬럼: X
+4) 집계할 때 사용할 계산: 수를 구한다 => COUNT, 포켓몬
+![스크린샷](../image/screenshot11.png)
+
+#### 2. 포켓몬의 수가 세대별로 얼마나 있는지 알 수 있는 쿼리를 작성해주세요.
+1) 사용할 테이블: pokemon
+2) 조건: X
+3) 그룹화를 할 때 사용할 컬럼: 세대
+4) 집계할 때 사용할 계산: 수를 구한다 => COUNT
+![스크린샷](../image/screenshot12.png)
+
+#### 3. 포켓몬의 수를 타입 별로 집계하고, 포켓몬의 수가 10 이상인 타입만 남기는 쿼리를 작성해주세요. 포켓몬의 수가 많은 순으로 정렬해주세요.
+1) 사용할 테이블: pokemon
+2) 조건(WHERE) => 테이블 원본 => 없음
+3) 집계 후 조건(HAVING) => 10 이상
+4) 포켓몬의 수가 많은 순으로 정렬(ORDER BY 포켓몬 수 DESC)
+5) 단계적으로 실행해 보면서 가도 된다! 한 번에 정답을 맞히려고 안 해도 된다!
+![스크린샷](../image/screenshot13.png)
+
+### 요약, 집계, 그룹화 정리
+- 집계하고 싶은 경우: GROUP BY + 집계 함수(AVG, MAX 등)
+- 고유값을 알고 싶은 경우: DISTINCT
+- 조건을 설정하고 싶은 경우: WHERE/HAVING
+- 정렬하고 싶은 경우: ORDER BY
+- 출력 개수를 제한하고 싶은 경우: LIMIT
+
+
+## 과제 인증샷
+![스크린샷](../image/screenshot14.png)
