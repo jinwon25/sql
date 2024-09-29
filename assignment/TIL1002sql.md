@@ -10,7 +10,7 @@
 - 어떤 테이블?: pokemon
 - 어떤 컬럼: 따로 없음. 포켓몬의 수만 남기면 됨
 - 어떻게 집계: 포켓몬의 수 => COUNT
-
+![스크린샷](../image/screenshot15.png)
 ```js
 SELECT
   COUNT (id) AS cnt
@@ -25,7 +25,7 @@ WHERE
 - 컬럼: type1
 - 집계: 포켓몬 수 => COUNT
 - 정렬: type1의 포켓몬 수가 큰 순으로 정렬 => ORDER BY 큰 순으로 : 큰 것부터 작은 것으로 => 내림차순(DESC) => ORDER BY 포켓몬 수 DESC
-
+![스크린샷](../image/screenshot16.png)
 ```js
 SELECT
   type1,
@@ -44,7 +44,7 @@ ORDER BY
 - 조건: type2 상관없이 => 조건인가? 아닌가? => 조건이 아님
 - 컬럼: type1
 - 집계: 포켓몬 수 => COUNT
-
+![스크린샷](../image/screenshot17.png)
 ```js
 SELECT
   type1,
@@ -59,7 +59,7 @@ GROUP BY
 - 조건: 없음
 - 컬럼: 전설(is_legendary)
 - 집계: 포켓몬 수
-
+![스크린샷](../image/screenshot18.png)
 ```js
 SELECT
   is_legendary,
@@ -77,7 +77,7 @@ GROUP BY
 - 조건: 같은 이름이 2개 이상(동명이인) => COUNT(name) => 2개 이상
 - 컬럼: 이름
 - 집계: COUNT
-
+![스크린샷](../image/screenshot19.png)
 ```js
 SELECT
   name,
@@ -97,7 +97,7 @@ HAVING
 - 조건: 트레이너의 이름 = "Iris"
 - 컬럼: 정보 => 모든 컬
 - 집계: X
-
+![스크린샷](../image/screenshot20.png)
 ```js
 SELECT
   *
@@ -111,7 +111,7 @@ WHERE
 - 조건: 이름 = "Iris", "Whitney", "Cynthia" 중에 있으면 추출
 - 컬럼: 정보 -> *
 - 집계: 없음
-
+![스크린샷](../image/screenshot21.png)
 ```js
 SELECT
   *
@@ -129,7 +129,7 @@ WHERE
 - 조건: 없음
 - 컬럼: 없음
 - 집계: 포켓몬 수 => COUNT(id)
-
+![스크린샷](../image/screenshot22.png)
 ```js
 SELECT
   COUNT(id) AS pokemon_cnt 
@@ -141,7 +141,7 @@ FROM basic.pokemon
 - 조건: 없음
 - 컬럼: 세대(generation)
 - 집계: 포켓몬 수 => COUNT
-
+![스크린샷](../image/screenshot23.png)
 ```js
 SELECT
   generation,
@@ -156,7 +156,7 @@ GROUP BY
 - 조건: type2가 존재하는! => type2 IS NOT NULL
 - 컬럼: X
 - 집계: 포켓몬 수 => COUNT
-
+![스크린샷](../image/screenshot24.png)
 ```js
 SELECT
   COUNT(id) AS pokemon_cnt
@@ -170,7 +170,7 @@ WHERE
 - 조건: type2가 있는
 - 컬럼: type1
 - 집계: 제일 많은 => COUNT
-
+![스크린샷](../image/screenshot25.png)
 ```js
 SELECT
   type1,
@@ -190,7 +190,7 @@ LIMIT 1
 - 조건: 단일 타입 => 하나의 타입만 존재 => type2가 NULL(값이 없어야 한다)
 - 컬럼: type1
 - 집계: COUNT
-
+![스크린샷](../image/screenshot26.png)
 ```js
 SELECT
   type1,
@@ -210,7 +210,7 @@ LIMIT 1
 - 조건: name에 "파"가 들어가는 포켓
 - 컬럼: 어떤 포켓몬이 있을까요? name
 - 집계: 없음
-
+![스크린샷](../image/screenshot27.png)
 ```js
 SELECT
   kor_name
@@ -225,7 +225,7 @@ WHERE
 - 조건: 뱃지가 6개 이상(badge_count >= 6)
 - 컬럼: 없음
 - 집계: 트레이너의 수(COUNT)
-
+![스크린샷](../image/screenshot28.png)
 ```js
 SELECT
   COUNT(id) AS trainer_cnt
@@ -239,14 +239,17 @@ WHERE
 - 조건: 없음
 - 컬럼: trainer_id
 - 집계: 포켓몬의 수 => COUNT
-
+![스크린샷](../image/screenshot29.png)
 ```js
 SELECT
   trainer_id,
   COUNT(pokemon_id) AS pokemon_cnt
 FROM basic.trainer_pokemon
-WHERE
+GROUP BY
   trainer_id
+ORDER BY
+  pokemon_cnt DESC
+LIMIT 1
 ```
 
 #### 16. 포켓몬을 많이 풀어준 트레이너는 누구일까요?
@@ -254,7 +257,7 @@ WHERE
 - 조건: status = "Released" (풀어준)
 - 컬럼: trainer_id
 - 집계: 많이 풀어준 => COUNT
-
+![스크린샷](../image/screenshot30.png)
 ```js
 SELECT
   trainer_id,
@@ -274,12 +277,12 @@ LIMIT 1
 - 조건: 풀어준 포켓몬의 비율이 20%가 넘어야 한다
 - 컬럼: trainer_id
 - 집계: COUNTIF(조건): COUNTIF(컬럼 = "3")
-
+![스크린샷](../image/screenshot31.png)
 ```js
 SELECT
   trainer_id,
-  COUNTIF(status = "Released") AS released_cnt
-  COUNT(pokemon_id) AS pokemon_cnt
+  COUNTIF(status = "Released") AS released_cnt,
+  COUNT(pokemon_id) AS pokemon_cnt,
   COUNTIF(status = "Released") / COUNT(pokemon_id) AS released_ratio
 FROM basic.trainer_pokemon
 GROUP BY
@@ -292,14 +295,62 @@ HAVING
 ## 2. 정리
 
 ### 데이터 탐색 - 조건, 추출, 요약 정리
-![스크린샷](../image/screenshot.png)
+![스크린샷](../image/screenshot32.png)
 
 
 ## 3. 새로운 집계 함수 소개(GROUP BY ALL, 2024-02-06에 나온 함수)
 
 **GROUP BY ALL:** 모든 그룹화 가능한 컬럼을 자동으로 추론하여 그룹화함
-![스크린샷](../image/screenshot.png)
+![스크린샷](../image/screenshot33.png)
 
 
 ## 4. SQL 쿼리 작성하는 흐름
 
+![스크린샷](../image/screenshot34.png)
+
+
+## 5. 쿼리 작성 템플릿과 생산성 도구
+
+### 쿼리 작성 템플릿
+- 쿼리를 작성하는 목표, 확인할 지표:
+- 쿼리 계산 방법:
+- 데이터의 기간:
+- 사용할 테이블:
+- Join KEY:
+- 데이터 특징:
+
+```js
+SELECT
+
+FROM
+WHERE
+```
+이렇게 글로 작성하면 쿼리 작성이 더 수월
+
+### 생산성 도구: 템플릿 쉽게 사용하기
+템플릿을 사용하자!라고 제시하면 생기는 일
+
+템플릿을 사용하는 것을 까먹음 => 습관 형성이 되지 않음<br>
+이 부분을 개선하기 위해 **생산성 도구**를 활용
+
+### 생산성 도구: Espanso
+https://espanso.org/
+
+- 윈도우 10, MAC, Linux 모두 사용 가능한 프로그램(무료)
+- 특정 단어를 입력하면 원하는 문장(템플릿)으로 변경
+
+### 생산성 도구: Espanso 핵심 로직
+특정 단어가 감지되면 정의된 것으로 바꾼다!
+> Match<br>
+> trigger ":date"<br>
+> replace "October 11, 2021"
+
+### 생산성 도구: Espanso 설정 수정하기(base.yml)
+![스크린샷](../image/screenshot35.png)
+
+### 생산성 도구: Espanso 확인 BigQuery Console에서 확인
+![스크린샷](../image/screenshot36.png)
+
+
+## 과제 인증샷
+![스크린샷](../image/screenshot37.png)
