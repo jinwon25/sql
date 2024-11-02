@@ -449,7 +449,7 @@ https://cloud.google.com/bigquery/docs?hl=ko
 - **RSS Feed(Really Simple Syndication)** - 새 기사들의 제목 또는 새 기사들 전체를 뽑아서 하나의 파일로 만들어 놓은 것
 - **슬랙에서 알람 받아보기**
     - 개인 목적으로 사용할 슬랙 워크스페이스 생성
-    - 채널에 아래 명령어 입력
+    - 채널에 아래 명령어 입력<br>
       /feed subscribe https://cloud.google.com/feeds/bigquery-release-notes.xml
 
 
