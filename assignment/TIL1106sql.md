@@ -5,41 +5,41 @@
 
 ### DATETIME 함수 - CURRENT_DATETIME
 - **CURRENT_DATETIME([time_zone]):** 현재 DATETIME출력
-![스크린샷](../image/screenshot.png)
+![스크린샷](../image/screenshot44.png)
 
 ### DATETIME 함수 - EXTRACT
 - DATETIME에서 특정 부분만 추출하고 싶은 경우
 - **EXTRACT(part FROM datetime_expression)**
+![스크린샷](../image/screenshot45.png)
 
 **요일을 추출하고 싶은 경우**
 - EXTRACT(**DAYOFWEEK** FROM datetime_col)
 - 한 주의 첫날이 일요일인 [1, 7] 범위의 값을 반환
-![스크린샷](../image/screenshot.png)
+![스크린샷](../image/screenshot46.png)
 
 ### DATETIME 함수 - DATETIME_TRUNC
 - DATE과 HOUR만 남기고 싶은 경우 => **시간 자르기**
 - DATETIME_TRUNC(datetime_col, **HOUR**)
-![스크린샷](../image/screenshot.png)
+![스크린샷](../image/screenshot47.png)
 
 ### DATETIME 함수 - PARSE_DATETIME
 - 문자열로 저장된 DATETIME을 DATETIME 타입으로 바꾸고 싶은 경우
 - PARSE_DATETIME('문자열의 형태', 'DATETIME 문자열') AS datetime
-![스크린샷](../image/screenshot.png)
+![스크린샷](../image/screenshot48.png)
 
 ### DATETIME 함수 - FORMAT_DATETIME
 - DATETIME 타입 데이터를 특정 형태의 문자열 데이터로 변환하고 싶은 경우
-![스크린샷](../image/screenshot.png)
 - 문자열 => DATETIME : PARSE_DATETIME
 - DATETIME => 문자열 : FORMAT_DATETIME
 
 ### DATETIME 함수 - LAST_DAY
 - 마지막 날을 알고 싶은 경우 : 자동으로 월의 마지막 값을 계산해서 특정 연산을 할 경우
-![스크린샷](../image/screenshot.png)
+![스크린샷](../image/screenshot49.png)
 
 ### DATETIME 함수 - DATETIME_DIFF
 - 두 DATETIME의 차이를 알고 싶은 경우
 - DATETIME_DIFF(첫번째 DATETIME, 두번째 DATETIME, 궁금한 차이)
-![스크린샷](../image/screenshot.png)
+![스크린샷](../image/screenshot50.png)
 
 
 ## 2. 시간데이터 연습문제
@@ -213,8 +213,8 @@ ORDER BY
 - 조건에 따라 다른 값을 표시하고 싶을 때 사용
 
 **조건문을 사용하는 방법**
-- 1) CASE WHEN
-- 2) IF
+1) CASE WHEN
+2) IF
 
 ### 조건문 함수가 사용되는 이유
 - 데이터 분석을 하다보면, 특정 카테고리를 하나로 합치는 전처리가 필요할 수 있음
@@ -413,8 +413,11 @@ FROM basic.battle
 ## 4. 정리
 
 ### 컬럼 변환하기 정리
-![스크린샷](../image/screenshot.png)
-
+![스크린샷](../image/screenshot51.png)
+- **숫자:** 사칙연산/SAFE_DIVIDE
+- **문자:** CONCAT/SPLIT/REPLACE/TRIM/UPPER
+- **시간, 날짜:** EXTRACT(HOUR FROM datetime)/DATETIME_TRUNC/PARSE_DATETIME
+- **부울(Bool):** 데이터 타입 변경하기/조건문: 특정 조건이면 변경하기/CASE WHEN/IF
 
 ## 5. BigQuery 공식 문서 확인하는 법
 
@@ -451,4 +454,4 @@ https://cloud.google.com/bigquery/docs?hl=ko
 
 
 ## 과제 인증샷
-![스크린샷](../image/screenshot.png)
+![스크린샷](../image/screenshot52.png)
