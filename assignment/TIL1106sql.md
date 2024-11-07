@@ -410,7 +410,7 @@ SELECT
 FROM basic.battle
 ```
 
-## 4. 정리
+## 5. 정리
 
 ### 컬럼 변환하기 정리
 ![스크린샷](../image/screenshot51.png)
