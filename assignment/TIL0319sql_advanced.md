@@ -190,7 +190,7 @@ ERROR 1241 (ER_OPERAND_COL): Operand should contain 1 column(s)
 SELECT * FROM t1 WHERE column1 = (SELECT column1 FROM t2);
 ```
 - t2가 여러 행을 반환하면 오류 발생
-- **해결책:** ANY를 사용하여 다중 행 비교 가능.
+- **해결책:** ANY를 사용하여 다중 행 비교 가능
 
 **수정된 예제:**
 ```js
@@ -210,3 +210,5 @@ ERROR 1093 (ER_UPDATE_TABLE_USED): You can't specify target table 't1' for updat
 ```
 
 **해결책:** Common Table Expression(CTE) 또는 Derived Table을 활용하여 문제 해결 가능
+
+## CTE(공통 테이블 표현식)
