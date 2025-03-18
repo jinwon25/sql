@@ -212,3 +212,53 @@ ERROR 1093 (ER_UPDATE_TABLE_USED): You can't specify target table 't1' for updat
 **해결책:** Common Table Expression(CTE) 또는 Derived Table을 활용하여 문제 해결 가능
 
 ## CTE(공통 테이블 표현식)
+
+### 15.2.20 WITH (Common Table Expressions)
+
+> CTE(공통 테이블 표현식)는 임시 결과 집합으로, 하나의 SQL 문 내에서 정의되고 참조될 수 있음
+>
+> `WITH` 키워드를 사용하여 정의하며, 이후 SQL 문에서 여러 번 참조 가능
+>
+> CTE는 재귀(Recursive) CTE와 비재귀(Non-Recursive) CTE로 구분됨
+
+```js
+WITH cte_name AS (subquery)
+SELECT * FROM cte_name;
+```
+
+---
+```js
+WITH employee_cte AS (
+    SELECT department_id, AVG(salary) AS avg_salary
+    FROM employees
+    GROUP BY department_id
+)
+SELECT e.name, e.salary, cte.avg_salary
+FROM employees e
+JOIN employee_cte cte ON e.department_id = cte.department_id;
+```
+-> 각 부서별 평균 급여와 직원의 급여를 함께 조회
+
+---
+**다중 CTE 사용 가능**
+```js
+WITH
+  cte1 AS (SELECT a, b FROM table1),
+  cte2 AS (SELECT c, d FROM table2)
+SELECT b, d FROM cte1 JOIN cte2 ON cte1.a = cte2.c;
+```
+
+---
+- `WITH` 절은 다음과 같은 SQL 문에서 사용 가능:
+    - `SELECT`, `UPDATE`, `DELETE`
+    - 서브쿼리 내에서 사용 가능
+    - `INSERT ... SELECT`, `CREATE VIEW ... SELECT` 등과 함께 사용 가능
+
+**이름 충돌 문제 해결**
+```js
+-- 잘못된 예제
+WITH cte1 AS (...), cte1 AS (...) SELECT ...;
+
+-- 올바른 예제
+WITH cte1 AS (...), cte2 AS (...) SELECT ...;
+```
