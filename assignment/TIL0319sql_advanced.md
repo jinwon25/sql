@@ -262,3 +262,70 @@ WITH cte1 AS (...), cte1 AS (...) SELECT ...;
 -- 올바른 예제
 WITH cte1 AS (...), cte2 AS (...) SELECT ...;
 ```
+
+
+## 문제 풀이
+
+### 문제 1
+![스크린샷](../image/screenshot80.png)
+```js
+SELECT *
+FROM tips
+WHERE total_bill >
+(SELECT AVG(total_bill)
+FROM tips)
+```
+
+
+---
+### 문제 2
+![스크린샷](../image/screenshot81.png)
+```js
+SELECT *
+FROM tips
+WHERE day IN
+(SELECT day
+FROM tips
+GROUP BY day
+HAVING SUM(total_bill) > 1500)
+```
+
+
+---
+### 문제 3
+**Subquery 활용**
+![스크린샷](../image/screenshot82.png)
+```js
+SELECT CATEGORY, PRICE
+AS MAX_PRICE, PRODUCT_NAME
+FROM FOOD_PRODUCT
+WHERE (CATEGORY, PRICE)
+IN
+(SELECT CATEGORY,
+MAX(PRICE)
+FROM FOOD_PRODUCT
+WHERE CATEGORY IN ('과자', '국', '김치', '식용유')
+GROUP BY CATEGORY)
+ORDER BY PRICE DESC
+```
+
+---
+**With 활용**
+![스크린샷](../image/screenshot83.png)
+```js
+WITH CTE AS
+(SELECT CATEGORY, 
+MAX(PRICE) AS MAX_PRICE
+FROM FOOD_PRODUCT
+GROUP BY CATEGORY)
+SELECT 
+F.CATEGORY, 
+F.PRICE AS MAX_PRICE, 
+F.PRODUCT_NAME
+FROM FOOD_PRODUCT F
+JOIN CTE 
+ON F.CATEGORY = CTE.CATEGORY
+AND F.PRICE = CTE.MAX_PRICE
+WHERE F.CATEGORY IN ('과자', '국', '김치', '식용유')
+ORDER BY F.PRICE DESC;
+```
