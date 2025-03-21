@@ -6,7 +6,7 @@
 > SELECT 쿼리문 안에 포함되어 있는 또 하나의 별도 SELECT 쿼리문
 
 ```js
-SELECT * FROM t1 WHERE column1 = (SELECT column1 FROM t2);
+SELECT * FROM t1 WHERE column1 = (SELECT column1 FROM t2)
 
 `SELECT * FROM t1`: 외부 쿼리
 `(SELECT column1 FROM t2)`: 서브 쿼리
@@ -31,7 +31,7 @@ non_subquery_operand LIKE (subquery)
 ---
 ```js
 SELECT * FROM t1
-WHERE column1 = (SELECT MAX(column2) FROM t2);
+WHERE column1 = (SELECT MAX(column2) FROM t2)
 ```
 -> t2 테이블의 column2에서 최대값을 찾아 t1 테이블에서 해당 값과 같은 column1을 가진 행을 조회
 
@@ -39,7 +39,7 @@ WHERE column1 = (SELECT MAX(column2) FROM t2);
 **특정 값이 주어진 컬럼에서 두 번 이상 등장하는 경우 찾기**
 ```js
 SELECT * FROM t1 AS t
-WHERE 2 = (SELECT COUNT(*) FROM t1 WHERE t1.id = t.id);
+WHERE 2 = (SELECT COUNT(*) FROM t1 WHERE t1.id = t.id)
 ```
 -> t1 테이블에서 id 값이 두 번 이상 등장하는 행을 조회
 
@@ -61,35 +61,35 @@ operand comparison_operator SOME (subquery)
 
 ---
 ```js
-SELECT s1 FROM t1 WHERE s1 > ANY (SELECT s1 FROM t2);
+SELECT s1 FROM t1 WHERE s1 > ANY (SELECT s1 FROM t2)
 ```
 -> t2에서 반환된 값 중 하나라도 s1보다 작은 값이 있다면 TRUE
 
 ---
 **IN은 = ANY의 별칭으로 사용됨**
 ```js
-SELECT s1 FROM t1 WHERE s1 IN (SELECT s1 FROM t2);
+SELECT s1 FROM t1 WHERE s1 IN (SELECT s1 FROM t2)
 ```
 -> s1 값이 t2의 결과 중 하나라도 포함되면 TRUE
 
 ---
 **SOME은 ANY의 별칭이며 같은 의미로 사용됨**
 ```js
-SELECT s1 FROM t1 WHERE s1 <> SOME (SELECT s1 FROM t2);
+SELECT s1 FROM t1 WHERE s1 <> SOME (SELECT s1 FROM t2)
 ```
 -> s1 값이 t2에서 반환된 값 중 하나라도 다른 값이 있으면 TRUE
 
 ---
 **NOT IN은 <> ALL과 동일한 의미를 가짐**
 ```js
-SELECT s1 FROM t1 WHERE s1 NOT IN (SELECT s1 FROM t2);
+SELECT s1 FROM t1 WHERE s1 NOT IN (SELECT s1 FROM t2)
 ```
 -> s1이 t2에서 반환된 값 어느 것도 포함되지 않을 때 TRUE
 
 ---
 **MySQL 8.0.19부터 TABLE 키워드를 사용하여 서브 쿼리 대체 가능**
 ```js
-SELECT s1 FROM t1 WHERE s1 IN (TABLE t2);
+SELECT s1 FROM t1 WHERE s1 IN (TABLE t2)
 ```
 -> t2가 단일 컬럼 테이블이라면 TABLE t2로 서브 쿼리를 대체 가능
 
@@ -103,28 +103,28 @@ operand comparison_operator ALL (subquery)
 
 ---
 ```js
-SELECT s1 FROM t1 WHERE s1 > ALL (SELECT s1 FROM t2);
+SELECT s1 FROM t1 WHERE s1 > ALL (SELECT s1 FROM t2)
 ```
 -> t1.s1이 t2.s1의 모든 값보다 클 경우 TRUE
 
 ---
 **테이블이 비어 있는 경우 ALL 조건은 항상 TRUE가 됨**
 ```js
-SELECT * FROM t1 WHERE 1 > ALL (SELECT s1 FROM t2);
+SELECT * FROM t1 WHERE 1 > ALL (SELECT s1 FROM t2)
 ```
 -> t2가 비어 있다면 TRUE
 
 ---
 **NOT IN은 <> ALL과 동일한 의미를 가짐**
 ```js
-SELECT s1 FROM t1 WHERE s1 NOT IN (SELECT s1 FROM t2);
+SELECT s1 FROM t1 WHERE s1 NOT IN (SELECT s1 FROM t2)
 ```
 -> s1이 t2에서 반환된 값 어느 것도 포함되지 않을 때 TRUE
 
 ---
 **MySQL 8.0.19부터 TABLE 키워드를 사용하여 서브 쿼리 대체 가능**
 ```js
-SELECT s1 FROM t1 WHERE s1 <> ALL (TABLE t2);
+SELECT s1 FROM t1 WHERE s1 <> ALL (TABLE t2)
 ```
 -> t2가 단일 컬럼 테이블이라면 TABLE t2로 서브 쿼리를 대체 가능
 
@@ -136,7 +136,7 @@ SELECT s1 FROM t1 WHERE s1 <> ALL (TABLE t2);
 
 ---
 ```js
-SELECT column1 FROM t1 WHERE EXISTS (SELECT * FROM t2);
+SELECT column1 FROM t1 WHERE EXISTS (SELECT * FROM t2)
 ```
 -> t2에 데이터가 하나라도 있으면 TRUE
 
@@ -145,14 +145,14 @@ SELECT column1 FROM t1 WHERE EXISTS (SELECT * FROM t2);
 ```js
 SELECT DISTINCT store_type FROM stores
 WHERE NOT EXISTS (SELECT * FROM cities_stores
-                  WHERE cities_stores.store_type = stores.store_type);
+                  WHERE cities_stores.store_type = stores.store_type)
 ```
 -> cities_stores에 존재하지 않는 store_type 조회
 
 ---
 **MySQL 8.0.19부터 TABLE 키워드를 사용하여 서브 쿼리 대체 가능**
 ```js
-SELECT column1 FROM t1 WHERE EXISTS (TABLE t2);
+SELECT column1 FROM t1 WHERE EXISTS (TABLE t2)
 ```
 
 
@@ -163,7 +163,7 @@ SELECT column1 FROM t1 WHERE EXISTS (TABLE t2);
 **1. 지원되지 않는 서브 쿼리 구문**
 - LIMIT과 함께 IN/ALL/ANY/SOME을 사용하는 서브 쿼리는 지원되지 않음
 ```js
-SELECT * FROM t1 WHERE s1 IN (SELECT s2 FROM t2 ORDER BY s1 LIMIT 1);
+SELECT * FROM t1 WHERE s1 IN (SELECT s2 FROM t2 ORDER BY s1 LIMIT 1)
 ```
 
 **오류 메시지:**
@@ -175,7 +175,7 @@ ERROR 1235 (ER_NOT_SUPPORTED_YET): This version of MySQL doesn't yet support 'LI
 **2. 잘못된 서브 쿼리 컬럼 개수**
 - 서브 쿼리는 비교 연산에서 단일 컬럼을 반환해야 함
 ```js
-SELECT (SELECT column1, column2 FROM t2) FROM t1;
+SELECT (SELECT column1, column2 FROM t2) FROM t1
 ```
 
 **오류 메시지:**
@@ -187,21 +187,21 @@ ERROR 1241 (ER_OPERAND_COL): Operand should contain 1 column(s)
 **3. 잘못된 서브 쿼리 행 개수**
 - 서브 쿼리는 단일 값을 기대하는 곳에서 여러 행을 반환할 수 없음
 ```js
-SELECT * FROM t1 WHERE column1 = (SELECT column1 FROM t2);
+SELECT * FROM t1 WHERE column1 = (SELECT column1 FROM t2)
 ```
 - t2가 여러 행을 반환하면 오류 발생
 - **해결책:** ANY를 사용하여 다중 행 비교 가능
 
 **수정된 예제:**
 ```js
-SELECT * FROM t1 WHERE column1 = ANY (SELECT column1 FROM t2);
+SELECT * FROM t1 WHERE column1 = ANY (SELECT column1 FROM t2)
 ```
 
 ---
 **4. 업데이트 대상 테이블을 서브 쿼리에서 사용하는 경우**
 - 동일한 테이블을 업데이트하면서 서브 쿼리에서 조회하는 것은 허용되지 않음
 ```js
-UPDATE t1 SET column2 = (SELECT MAX(column1) FROM t1);
+UPDATE t1 SET column2 = (SELECT MAX(column1) FROM t1)
 ```
 
 **오류 메시지:**
@@ -223,7 +223,7 @@ ERROR 1093 (ER_UPDATE_TABLE_USED): You can't specify target table 't1' for updat
 
 ```js
 WITH cte_name AS (subquery)
-SELECT * FROM cte_name;
+SELECT * FROM cte_name
 ```
 
 ---
@@ -235,7 +235,7 @@ WITH employee_cte AS (
 )
 SELECT e.name, e.salary, cte.avg_salary
 FROM employees e
-JOIN employee_cte cte ON e.department_id = cte.department_id;
+JOIN employee_cte cte ON e.department_id = cte.department_id
 ```
 -> 각 부서별 평균 급여와 직원의 급여를 함께 조회
 
@@ -245,7 +245,7 @@ JOIN employee_cte cte ON e.department_id = cte.department_id;
 WITH
   cte1 AS (SELECT a, b FROM table1),
   cte2 AS (SELECT c, d FROM table2)
-SELECT b, d FROM cte1 JOIN cte2 ON cte1.a = cte2.c;
+SELECT b, d FROM cte1 JOIN cte2 ON cte1.a = cte2.c
 ```
 
 ---
@@ -257,10 +257,10 @@ SELECT b, d FROM cte1 JOIN cte2 ON cte1.a = cte2.c;
 **이름 충돌 문제 해결**
 ```js
 -- 잘못된 예제
-WITH cte1 AS (...), cte1 AS (...) SELECT ...;
+WITH cte1 AS (...), cte1 AS (...) SELECT ...
 
 -- 올바른 예제
-WITH cte1 AS (...), cte2 AS (...) SELECT ...;
+WITH cte1 AS (...), cte2 AS (...) SELECT ...
 ```
 
 
@@ -327,5 +327,5 @@ JOIN CTE
 ON F.CATEGORY = CTE.CATEGORY
 AND F.PRICE = CTE.MAX_PRICE
 WHERE F.CATEGORY IN ('과자', '국', '김치', '식용유')
-ORDER BY F.PRICE DESC;
+ORDER BY F.PRICE DESC
 ```
