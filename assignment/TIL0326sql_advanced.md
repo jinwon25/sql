@@ -1,14 +1,5 @@
 # SQL_Advanced Assignment 1주차
 
-📝 **문제 풀이**:
-
-- 🔗 [LeetCode - Rank Scores](https://leetcode.com/problems/rank-scores/description/) `DENSE_RANK()`
-- 🔗 [Solvesql - 다음날도 서울숲의 미세먼지 농도는 나쁨 😢](https://solvesql.com/problems/bad-finedust-measure/) `LEAD()`
-- 🔗 [programmers - 그룹별 조건에 맞는 식당 목록 출력하기](https://school.programmers.co.kr/learn/courses/30/lessons/131124) (도전!!)
-    
-    → 문제를 푸는 다양한 방식이 있지만, **윈도우 함수를 사용하여** 해결하는 방식에 대해 고민해 보시길 바랍니다.
-
-
 ## 윈도우 함수
 
 ### 14.20.2. Window Function Concepts and Syntax
@@ -217,11 +208,58 @@ WINDOW w1 AS (w2), w2 AS (w3), w3 AS (w1)
 
 ## 문제 풀이
 
+### 문제 1 - 🔗 [LeetCode - Rank Scores](https://leetcode.com/problems/rank-scores/description/) `DENSE_RANK()`
+![스크린샷](../image/screenshot84.png)
+```js
+SELECT
+  score,
+  DENSE_RANK() OVER (ORDER BY score DESC) AS 'rank'
+FROM Scores
+ORDER BY score DESC;
+```
 
-### 문제 1
+### 문제 2 - 🔗 [Solvesql - 다음날도 서울숲의 미세먼지 농도는 나쁨 😢](https://solvesql.com/problems/bad-finedust-measure/) `LEAD()`
+![스크린샷](../image/screenshot85.png)
+```js
+SELECT
+  today,
+  next_day,
+  pm10,
+  next_pm10
+FROM (
+  SELECT
+    measured_at AS today,
+    LEAD(measured_at) OVER (ORDER BY measured_at) AS next_day,
+    pm10,
+    LEAD(pm10) OVER (ORDER BY measured_at) AS next_pm10
+  FROM measurements
+) AS sub
+WHERE next_pm10 > pm10;
+```
 
-
-### 문제 2
-
-
-### 문제 3
+### 문제 3 - 🔗 [programmers - 그룹별 조건에 맞는 식당 목록 출력하기](https://school.programmers.co.kr/learn/courses/30/lessons/131124)
+![스크린샷](../image/screenshot86.png)
+```js
+SELECT 
+    MEMBER_NAME,
+    REVIEW_TEXT,
+    DATE_FORMAT(REVIEW_DATE, '%Y-%m-%d') AS REVIEW_DATE
+FROM (
+    SELECT 
+        MP.MEMBER_NAME,
+        RR.REVIEW_TEXT,
+        RR.REVIEW_DATE,
+        COUNT(*) OVER (PARTITION BY RR.MEMBER_ID) AS REVIEW_COUNT
+    FROM REST_REVIEW RR
+    JOIN MEMBER_PROFILE MP
+      ON RR.MEMBER_ID = MP.MEMBER_ID
+) AS sub1
+WHERE REVIEW_COUNT = (
+    SELECT MAX(REVIEW_COUNT)
+    FROM (
+        SELECT COUNT(*) OVER (PARTITION BY MEMBER_ID) AS REVIEW_COUNT
+        FROM REST_REVIEW
+    ) AS sub2
+)
+ORDER BY REVIEW_DATE ASC, REVIEW_TEXT ASC;
+```
