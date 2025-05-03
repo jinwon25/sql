@@ -1,5 +1,74 @@
 # Week4_TIL
 
+## **📌 Week 4: CTE, GROUP_CONCAT()**
+
+---
+
+### **1️⃣ 주요 개념**
+
+- **CTE, GROUP_CONCAT()**:
+    - `WITH RECURSIVE`
+    - `GROUP_CONCAT()`
+- 해당 문법의 개념과 사용 시 주의할 점들을 정리하여 깃허브에 정리해 주세요.
+
+---
+
+### **2️⃣ 과제 안내**
+
+각 개념에 대해 공식 문서를 참고하여 정리하고, 해당 개념을 활용하여 문제를 해결하세요.
+
+### **✅ GROUP_CONCAT() 학습 및 문제 풀이**
+
+📖 **공식 문서 참고**
+
+- 🔗 [MySQL 공식 문서 - GROUP_CONCAT()](https://dev.mysql.com/doc/refman/8.0/en/aggregate-functions.html#function_group-concat)
+    
+    (1주차에 OVER절을 이용해서 윈도우함수처럼 사용한 부분을 학습하실 때 활용한 공식문서와 동일합니다. GROUP_CONCAT()부분을 중심으로 공부해주세요.)
+    
+
+📝 **문제 풀이**:
+
+- 🔗 [programmers - 우유와 요거트가 담긴 장바구니](https://school.programmers.co.kr/learn/courses/30/lessons/62284) **`GROUP_CONCAT()`**
+    
+    ```jsx
+    조건:
+    - WITH 구문을 사용해 가상의 테이블을 먼저 만들고,
+    - GROUP_CONCAT() 을 활용하여 상품명을 하나의 문자열로 합친 후,
+    - 그 문자열을 활용해 Milk와 Yogurt가 모두 존재하는 장바구니만 필터링해야 합니다.
+    ```
+    
+    → 성능 상 더 좋은 쿼리를 짜는 방법들이 있지만, 이번 문제는 **GROUP_CONCAT()**을 활용하여 데이터를 가공하는 연습을 목표로 합니다.
+    
+- 🔗 [programmers - 언어별 개발자 분류하기](https://school.programmers.co.kr/learn/courses/30/lessons/276036) **(OPTIONAL)**는 2주차에 `HAVING`을 공부할 때 풀어본 문제입니다.
+    
+    해당 문제 상황을 참고하여, **각 개발자가 보유한 기술 목록과 기술 카테고리를 요약하여 출력하는 쿼리**를 작성해주세요.**`GROUP_CONCAT()`**
+    
+    출력 결과는 다음과 같아야 합니다.
+    
+    ![4-2.PNG](attachment:079e9ecb-3a6d-4dea-aea8-60981d09d411:4-2.png)
+    
+
+### **✅ CTE(`WITH RECURSIVE`) 학습 및 문제 풀이**
+
+📖 **공식 문서 참고**
+
+- 🔗 [MySQL 공식 문서 - WITH RECURSIVE](https://dev.mysql.com/doc/refman/8.0/en/with.html)
+    
+    (0주차에 학습한 공식문서와 동일합니다. `WITH RECURSIVE` 를 위주로 학습해주세요.)
+    
+
+📝 **문제 풀이**:
+
+- 🔗 [programmers - 입양 시각 구하기(2)](https://school.programmers.co.kr/learn/courses/30/lessons/59413) **`WITH RECURSIVE`**
+
+---
+
+### **3️⃣ 과제 제출 방식**
+
+1. **공식 문서를 참고하여 해당 개념을 정리**
+2. **정리한 개념과 문제 풀이 내용을 깃허브에 업로드**
+3. **과제 업로드 시트에 깃허브 링크 첨부**
+
 ## 15.2.20. WITH (Common Table Expressions)
 
 ### Recursive Common Table Expressions
