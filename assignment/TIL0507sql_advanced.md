@@ -1,6 +1,17 @@
-# Week4_TIL
+# SQL_Advanced Assignment 4주차
 
-## **📌 Week 4: CTE, GROUP_CONCAT()**
+## CTE & GROUP_CONCAT()
+
+### 14.19.1 Aggregate Function Descriptions
+
+
+
+### 15.2.20 WITH (Common Table Expressions)
+
+
+
+
+## 문제 풀이
 
 ---
 
