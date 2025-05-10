@@ -169,19 +169,38 @@ SELECT BIT_COUNT(15);  -- 결과: 4
 ### 문제 1 - 🔗 [programmers - 서울에 위치한 식당 목록 출력하기](https://school.programmers.co.kr/learn/courses/30/lessons/131118)
 ![스크린샷](../image/screenshot94.png)
 ```sql
-
+SELECT
+  i.REST_ID,
+  i.REST_NAME,
+  i.FOOD_TYPE,
+  i.FAVORITES,
+  i.ADDRESS,
+  ROUND(AVG(r.REVIEW_SCORE), 2) AS SCORE
+FROM REST_INFO i
+JOIN REST_REVIEW r
+  ON i.REST_ID = r.REST_ID
+WHERE REGEXP_LIKE(i.ADDRESS, '^서울')
+GROUP BY
+  i.REST_ID,
+  i.REST_NAME,
+  i.FOOD_TYPE,
+  i.FAVORITES,
+  i.ADDRESS
+ORDER BY
+  SCORE DESC,
+  i.FAVORITES DESC;
 ```
 
 ### 문제 2 - 🔗 [programmers - 부모의 형질을 모두 가지는 대장균 찾기](https://school.programmers.co.kr/learn/courses/30/lessons/301647)
 ![스크린샷](../image/screenshot95.png)
 ```sql
-
+SELECT
+  c.ID,
+  c.GENOTYPE,
+  p.GENOTYPE AS PARENT_GENOTYPE
+FROM ECOLI_DATA c
+JOIN ECOLI_DATA p
+  ON c.PARENT_ID = p.ID
+WHERE (c.GENOTYPE & p.GENOTYPE) = p.GENOTYPE
+ORDER BY c.ID;
 ```
-
-📝 **문제 풀이**: 정규표현식을 이용하여 문제를 풀어보세요.
-
-- 🔗 [programmers - 서울에 위치한 식당 목록 출력하기](https://school.programmers.co.kr/learn/courses/30/lessons/131118)
-
-📝 **문제 풀이**: 비트연산자를 활용하는 문제는 이미 이전 주차에 풀어봤으므로 익숙해졌으리라 생각됩니다!  이번에는 조금 더 난이도 있는 문제를 통해 문제의 논리 구조와 조건을 해석하는 연습을 해보세요.
-
-- 🔗 [programmers - 부모의 형질을 모두 가지는 대장균 찾기](https://school.programmers.co.kr/learn/courses/30/lessons/301647)
